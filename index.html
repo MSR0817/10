@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>广州市2017-2022年公园绿地面积增长情况</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            font-family: 'Microsoft YaHei', sans-serif;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+        .unit-label {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="chart-container">
+    <h1>广州市2017-2022年公园绿地面积增长情况</h1>
+    <div class="unit-label">单位：公顷</div>
+    <canvas id="parkAreaChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById('parkAreaChart').getContext('2d');
+
+    // 统一清新的暖色调 - 浅橙色系
+    const mainColor = 'rgba(255, 159, 64, 0.7)';
+    const borderColor = 'rgba(255, 159, 64, 1)';
+
+    const years = ['2017', '2018', '2019', '2020', '2021', '2022'];
+    const areaData = [26862, 30188.5, 32081.33, 32358.43, 32360, 32413];
+
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: years,
+            datasets: [{
+                label: '公园绿地面积 (公顷)',
+                data: areaData,
+                backgroundColor: mainColor,
+                borderColor: borderColor,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y.toLocaleString() + ' 公顷';
+                        }
+                    },
+                    displayColors: false,
+                    backgroundColor: 'rgba(50, 50, 50, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    bodyFont: {
+                        weight: 'bold'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: '年份',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: '面积 (公顷)',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    min: 25000,
+                    max: 33000,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            },
+            barPercentage: 0.4,  // 控制柱子宽度
+            categoryPercentage: 0.8
+        }
+    });
+</script>
+</body>
+</html>
